@@ -1,0 +1,66 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials/header :: header"></head>
+<nav th:replace="partials/header :: navbar"></nav>
+
+<body>
+	<div class="container">
+		<h3>Main Dashboard</h3>
+		<div class="container">
+	<table class="table table-bordered">
+	<thead>
+        <tr class="text-center">  
+          <th>Detail</th>
+          <th>Name</th>
+          <th>Code</th>
+          <th>Number</th>
+          <th>Action</th>         
+        </tr>
+        </thead>
+        <tbody>
+        <th:block  th:each="model, state : ${models}">
+        <tr class="text-center">          
+          <td><i class="details-button far fa-eye accordion-toggle" th:attr="data-target='#accordion_'+${model.name},aria-controls=${model.name},code=${model.code}" data-toggle="collapse" aria-expanded="false"></i></td>
+          <td th:utext="${model.getName()}">count</td>
+          <td th:utext="${model.getCode()}">size</td>
+          <td th:utext="${model.getNumber}">even</td>
+          <td><i class="fas fa-pen"></i></td>                     
+        </tr>
+       <tr class="accordion-body collapse" th:id="'accordion_'+${model.name}" style="transition: 0.5s;">
+             <td colspan="5">
+            		<div th:id="'info_'+${model.code}">
+            		</div>
+       		 </td>
+        </tr>
+        </th:block>
+        </tbody>
+    </table>
+		</div>			
+	</div>	
+	  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script th:inline="javascript">
+	$(document).ready(function () {
+	 	$(".details-button").click(e => {	
+		 	const code = $(e.target).attr('code')
+			const element =document.getElementById('info_'+code)
+			if (element.getElementsByTagName('*').length > 0) {
+				return
+			}  
+	     	fetchInfo(code).then(result => {  
+			     element.innerHTML = result
+			     console.log(result)
+			     })
+	     
+	    })
+	    async function fetchInfo(id){    
+		    let res = await fetch(`http://localhost:8080/${id}`)
+		    res = await res.text()
+		    //var parser = new DOMParser();
+		    //var html =  await parser.parseFromString(res, 'text/html');
+		    return res
+	    }
+	 })
+</script>
+</body>
+</html>

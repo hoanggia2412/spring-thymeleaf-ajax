@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+<div th:fragment="details" class="row container target-div">
+	<div class="col d-flex flex-column justify-content-between">
+     	<div class="p-2 row">
+     		<p class="col-3 font-weight-bold">Name</p>
+     		<p th:utext="${model.name}" class="col-auto">Text</p>
+     	</div>
+     	<div class="p-2 row">
+     		<p class="col-3 font-weight-bold">Code</p>
+     		<p th:utext="${model.code}" class="col-auto">Text</p>
+     	</div>
+     	<div class="p-2 row">
+     		<p class="col-3 font-weight-bold">Number</p>
+     		<p th:utext="${model.number}" class="col-auto">Text</p>
+     	</div>
+    </div>
+    <div class="col d-flex flex-column justify-content-between">
+     	<div class="p-2 row">
+     		<p class="col-3 font-weight-bold">Height</p>
+     		<p th:utext="${model.height}" class="col-auto">Text</p>
+     	</div>
+     	<div class="p-2 row">
+     		<p class="col-3 font-weight-bold">Weight</p>
+     		<p th:utext="${model.weight}" class="col-auto">Text</p>
+     	</div>
+     	<div class="p-2 row">
+     		<p class="col-3 font-weight-bold">Width</p>
+     		<p th:utext="${model.width}" class="col-auto">Text</p>
+     	</div>
+    </div>
+    <div class="col d-flex flex-column justify-content-between">
+      	<div class="p-2 row">
+     		<p class="col-3 font-weight-bold">Status</p>
+     		<p th:utext="${model.status} ? 'Connected' : 'Disconnected'" class="col-auto">Text</p>
+     	</div>
+     	<div class="p-2 row">
+     		<p class="col-3 font-weight-bold">Range</p>
+     		<p class="col-auto" th:utext="${model.range}">Text</p>
+     	</div>
+     	<div class="p-2 row">
+     		<p class="col-3 font-weight-bold">Block</p>
+     		<p class="col-auto" th:utext="${model.block}">Text</p>
+     	</div>
+    </div>
+</div>
+</body>
+</html>
