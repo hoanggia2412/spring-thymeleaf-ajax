@@ -60,7 +60,6 @@ public class DemoController {
 		models.add(request);
 		return "redirect:/";
 	}
-	
 	@Getter
 	@Builder
 	static class Obj implements Serializable{
