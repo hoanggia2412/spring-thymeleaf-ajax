@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="partials/header :: header"></head>
 <nav th:replace="partials/header :: navbar"></nav>
-
 <body>
 	<div class="container">
 		<h3>Main Dashboard</h3>
@@ -44,11 +43,8 @@
 	 		fetchInfo('register').then(result => {  
 			     element.innerHTML = result
 			     console.log(result)
-			     }).then(() => $('#exampleModal').modal('show'))
-	     
+			     }).then(() => $('#exampleModal').modal('show')) 
 	 	})
-	 	
-	 	
 	})
 </script>
 </body>
