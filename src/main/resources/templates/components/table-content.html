@@ -1,0 +1,29 @@
+<table class="table table-bordered">
+					<thead>
+				        <tr class="text-center">  
+				          <th>Detail</th>
+				          <th>Name</th>
+				          <th>Code</th>
+				          <th>Number</th>
+				          <th>Action</th>         
+				        </tr>
+			        </thead>
+			        <tbody>
+				        <th:block  th:each="model, state : ${models}">
+				        <tr class="text-center">          
+				          <td><i class="details-button far fa-eye" th:attr="data-target='#accordion_'+${model.name},aria-controls=${model.name},code=${model.code}" 
+				          data-toggle="collapse" aria-expanded="false" style="cursor: pointer"></i></td>
+				          <td th:utext="${model.getName()}">count</td>
+				          <td th:utext="${model.getCode()}">size</td>
+				          <td th:utext="${model.getNumber}">even</td>
+				          <td><i class="fas fa-pen"></i></td>                     
+				        </tr>
+				       <tr class="collapse" th:id="'accordion_'+${model.name}" style="padding: 0;">
+				             <td colspan="5">
+				            		<div th:id="'info_'+${model.code}">
+				            		</div>
+				       		 </td>
+				        </tr>
+			        </th:block>
+			        </tbody>
+		    </table>

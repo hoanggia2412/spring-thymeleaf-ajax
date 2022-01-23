@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="partials/header :: header"></head>
 <nav th:replace="partials/header :: navbar"></nav>
@@ -6,41 +7,18 @@
 	<div class="container">
 		<h3>Main Dashboard</h3>
 		<div class="container">
-	<table class="table table-bordered">
-	<thead>
-        <tr class="text-center">  
-          <th>Detail</th>
-          <th>Name</th>
-          <th>Code</th>
-          <th>Number</th>
-          <th>Action</th>         
-        </tr>
-        </thead>
-        <tbody>
-        <th:block  th:each="model, state : ${models}">
-        <tr class="text-center">          
-          <td><i class="details-button far fa-eye accordion-toggle" th:attr="data-target='#accordion_'+${model.name},aria-controls=${model.name},code=${model.code}" data-toggle="collapse" aria-expanded="false"></i></td>
-          <td th:utext="${model.getName()}">count</td>
-          <td th:utext="${model.getCode()}">size</td>
-          <td th:utext="${model.getNumber}">even</td>
-          <td><i class="fas fa-pen"></i></td>                     
-        </tr>
-       <tr class="accordion-body collapse" th:id="'accordion_'+${model.name}" style="transition: 0.5s;">
-             <td colspan="5">
-            		<div th:id="'info_'+${model.code}">
-            		</div>
-       		 </td>
-        </tr>
-        </th:block>
-        </tbody>
-    </table>
+			<button id="register-button" type="button" class="btn btn-primary m-2" data-toggle="modal" data-target="#exampleModal">
+			  Register
+			</button> 
+			<th:block th:replace="components/table-content"></th:block>
 		</div>			
 	</div>	
-	  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script th:inline="javascript">
-	$(document).ready(function () {
+	<div id="modal"></div>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script th:inline="javascript">
+	$(document).ready(function () {	
 	 	$(".details-button").click(e => {	
 		 	const code = $(e.target).attr('code')
 			const element =document.getElementById('info_'+code)
@@ -48,19 +26,30 @@
 				return
 			}  
 	     	fetchInfo(code).then(result => {  
-			     element.innerHTML = result
-			     console.log(result)
+	     		$('#info_'+code).html(result)		    
 			     })
 	     
 	    })
-	    async function fetchInfo(id){    
-		    let res = await fetch(`http://localhost:8080/${id}`)
+	    async function fetchInfo(value){    
+		    let res = await fetch(`http://localhost:8080/${value}`)
 		    res = await res.text()
-		    //var parser = new DOMParser();
-		    //var html =  await parser.parseFromString(res, 'text/html');
 		    return res
 	    }
-	 })
+	 	
+	 	$('#register-button').click(e => {
+	 		const element =document.getElementById('modal')
+	 		if (element.getElementsByTagName('*').length > 0) {
+				return
+	 		}
+	 		fetchInfo('register').then(result => {  
+			     element.innerHTML = result
+			     console.log(result)
+			     }).then(() => $('#exampleModal').modal('show'))
+	     
+	 	})
+	 	
+	 	
+	})
 </script>
 </body>
 </html>
